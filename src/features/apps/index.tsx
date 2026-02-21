@@ -47,14 +47,17 @@ export function Apps() {
         ? a.name.localeCompare(b.name)
         : b.name.localeCompare(a.name)
     )
-    .filter((app) =>
-      appType === 'connected'
-        ? app.connected
-        : appType === 'notConnected'
-          ? !app.connected
-          : true
-    )
-    .filter((app) => app.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter((app) => {
+      const matchesType =
+        appType === 'connected'
+          ? app.connected
+          : appType === 'notConnected'
+            ? !app.connected
+            : true
+      return (
+        matchesType && app.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    })
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)

@@ -62,17 +62,20 @@ export function DataTableFacetedFilter<TData, TValue>({
                     {selectedValues.size} selected
                   </Badge>
                 ) : (
-                  options
-                    .filter((option) => selectedValues.has(option.value))
-                    .map((option) => (
-                      <Badge
-                        variant='secondary'
-                        key={option.value}
-                        className='rounded-sm px-1 font-normal'
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
+                  options.reduce<React.ReactNode[]>((acc, option) => {
+                    if (selectedValues.has(option.value)) {
+                      acc.push(
+                        <Badge
+                          variant='secondary'
+                          key={option.value}
+                          className='rounded-sm px-1 font-normal'
+                        >
+                          {option.label}
+                        </Badge>
+                      )
+                    }
+                    return acc
+                  }, [])
                 )}
               </div>
             </>
@@ -112,15 +115,15 @@ export function DataTableFacetedFilter<TData, TValue>({
                     >
                       <CheckIcon className={cn('h-4 w-4 text-background')} />
                     </div>
-                    {option.icon && (
+                    {option.icon ? (
                       <option.icon className='size-4 text-muted-foreground' />
-                    )}
+                    ) : null}
                     <span>{option.label}</span>
-                    {facets?.get(option.value) && (
+                    {facets?.get(option.value) != null ? (
                       <span className='ms-auto flex h-4 w-4 items-center justify-center font-mono text-xs'>
                         {facets.get(option.value)}
                       </span>
-                    )}
+                    ) : null}
                   </CommandItem>
                 )
               })}

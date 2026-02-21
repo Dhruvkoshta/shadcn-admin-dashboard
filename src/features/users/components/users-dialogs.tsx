@@ -19,7 +19,7 @@ export function UsersDialogs() {
         onOpenChange={() => setOpen('invite')}
       />
 
-      {currentRow && (
+      {currentRow ? (
         <>
           <UsersActionDialog
             key={`user-edit-${currentRow.id}`}
@@ -45,7 +45,7 @@ export function UsersDialogs() {
             currentRow={currentRow}
           />
         </>
-      )}
+      ) : null}
     </>
   )
 }

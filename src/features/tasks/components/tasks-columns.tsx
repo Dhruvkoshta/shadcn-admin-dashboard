@@ -1,7 +1,7 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { DataTableColumnHeader } from '@/components/data-table'
+import { DataTableColumnHeader } from '@/components/data-table/column-header'
 import { labels, priorities, statuses } from '../data/data'
 import { type Task } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
@@ -54,7 +54,7 @@ export const tasksColumns: ColumnDef<Task>[] = [
 
       return (
         <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
+          {label ? <Badge variant='outline'>{label.label}</Badge> : null}
           <span className='truncate font-medium'>{row.getValue('title')}</span>
         </div>
       )
@@ -77,9 +77,9 @@ export const tasksColumns: ColumnDef<Task>[] = [
 
       return (
         <div className='flex w-[100px] items-center gap-2'>
-          {status.icon && (
+          {status.icon ? (
             <status.icon className='size-4 text-muted-foreground' />
-          )}
+          ) : null}
           <span>{status.label}</span>
         </div>
       )
@@ -105,9 +105,9 @@ export const tasksColumns: ColumnDef<Task>[] = [
 
       return (
         <div className='flex items-center gap-2'>
-          {priority.icon && (
+          {priority.icon ? (
             <priority.icon className='size-4 text-muted-foreground' />
-          )}
+          ) : null}
           <span>{priority.label}</span>
         </div>
       )

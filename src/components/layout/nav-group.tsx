@@ -72,9 +72,9 @@ function SidebarMenuLink({ item, href }: { item: NavLink; href: string }) {
         tooltip={item.title}
       >
         <Link to={item.url} onClick={() => setOpenMobile(false)}>
-          {item.icon && <item.icon />}
+          {item.icon ? <item.icon /> : null}
           <span>{item.title}</span>
-          {item.badge && <NavBadge>{item.badge}</NavBadge>}
+          {item.badge ? <NavBadge>{item.badge}</NavBadge> : null}
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
@@ -98,9 +98,9 @@ function SidebarMenuCollapsible({
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
-            {item.icon && <item.icon />}
+            {item.icon ? <item.icon /> : null}
             <span>{item.title}</span>
-            {item.badge && <NavBadge>{item.badge}</NavBadge>}
+            {item.badge ? <NavBadge>{item.badge}</NavBadge> : null}
             <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:rotate-180' />
           </SidebarMenuButton>
         </CollapsibleTrigger>
@@ -113,9 +113,11 @@ function SidebarMenuCollapsible({
                   isActive={checkIsActive(href, subItem)}
                 >
                   <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
-                    {subItem.icon && <subItem.icon />}
+                    {subItem.icon ? <subItem.icon /> : null}
                     <span>{subItem.title}</span>
-                    {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
+                    {subItem.badge ? (
+                      <NavBadge>{subItem.badge}</NavBadge>
+                    ) : null}
                   </Link>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
@@ -142,9 +144,9 @@ function SidebarMenuCollapsedDropdown({
             tooltip={item.title}
             isActive={checkIsActive(href, item)}
           >
-            {item.icon && <item.icon />}
+            {item.icon ? <item.icon /> : null}
             <span>{item.title}</span>
-            {item.badge && <NavBadge>{item.badge}</NavBadge>}
+            {item.badge ? <NavBadge>{item.badge}</NavBadge> : null}
             <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
@@ -159,11 +161,11 @@ function SidebarMenuCollapsedDropdown({
                 to={sub.url}
                 className={`${checkIsActive(href, sub) ? 'bg-secondary' : ''}`}
               >
-                {sub.icon && <sub.icon />}
+                {sub.icon ? <sub.icon /> : null}
                 <span className='max-w-52 text-wrap'>{sub.title}</span>
-                {sub.badge && (
+                {sub.badge ? (
                   <span className='ms-auto text-xs'>{sub.badge}</span>
-                )}
+                ) : null}
               </Link>
             </DropdownMenuItem>
           ))}
@@ -177,7 +179,7 @@ function checkIsActive(href: string, item: NavItem, mainNav = false) {
   return (
     href === item.url || // /endpint?search=param
     href.split('?')[0] === item.url || // endpoint
-    !!item?.items?.filter((i) => i.url === href).length || // if child nav is active
+    !!item?.items?.some((i) => i.url === href) || // if child nav is active
     (mainNav &&
       href.split('/')[1] !== '' &&
       href.split('/')[1] === item?.url?.split('/')[1])

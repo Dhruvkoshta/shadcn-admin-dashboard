@@ -65,6 +65,10 @@ type UseTableUrlStateReturn = {
   ) => void
 }
 
+const EMPTY_COLUMN_FILTERS: NonNullable<
+  UseTableUrlStateParams['columnFilters']
+> = []
+
 export function useTableUrlState(
   params: UseTableUrlStateParams
 ): UseTableUrlStateReturn {
@@ -73,7 +77,7 @@ export function useTableUrlState(
     navigate,
     pagination: paginationCfg,
     globalFilter: globalFilterCfg,
-    columnFilters: columnFiltersCfg = [],
+    columnFilters: columnFiltersCfg = EMPTY_COLUMN_FILTERS,
   } = params
 
   const pageKey = paginationCfg?.pageKey ?? ('page' as string)

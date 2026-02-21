@@ -18,6 +18,8 @@ import { routeTree } from './routeTree.gen'
 // Styles
 import './styles/index.css'
 
+const NON_RETRYABLE_STATUS_CODES = new Set([401, 403])
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -30,7 +32,7 @@ const queryClient = new QueryClient({
 
         return !(
           error instanceof AxiosError &&
-          [401, 403].includes(error.response?.status ?? 0)
+          NON_RETRYABLE_STATUS_CODES.has(error.response?.status ?? 0)
         )
       },
       refetchOnWindowFocus: import.meta.env.PROD,

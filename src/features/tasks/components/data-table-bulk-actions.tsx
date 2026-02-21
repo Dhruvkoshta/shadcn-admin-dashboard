@@ -15,7 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { DataTableBulkActions as BulkActionsToolbar } from '@/components/data-table'
+import { DataTableBulkActions as BulkActionsToolbar } from '@/components/data-table/bulk-actions'
 import { priorities, statuses } from '../data/data'
 import { type Task } from '../data/schema'
 import { TasksMultiDeleteDialog } from './tasks-multi-delete-dialog'
@@ -99,9 +99,9 @@ export function DataTableBulkActions<TData>({
                 defaultValue={status.value}
                 onClick={() => handleBulkStatusChange(status.value)}
               >
-                {status.icon && (
+                {status.icon ? (
                   <status.icon className='size-4 text-muted-foreground' />
-                )}
+                ) : null}
                 {status.label}
               </DropdownMenuItem>
             ))}
@@ -135,9 +135,9 @@ export function DataTableBulkActions<TData>({
                 defaultValue={priority.value}
                 onClick={() => handleBulkPriorityChange(priority.value)}
               >
-                {priority.icon && (
+                {priority.icon ? (
                   <priority.icon className='size-4 text-muted-foreground' />
-                )}
+                ) : null}
                 {priority.label}
               </DropdownMenuItem>
             ))}

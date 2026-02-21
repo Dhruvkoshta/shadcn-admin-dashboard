@@ -20,7 +20,7 @@ export function TasksDialogs() {
         onOpenChange={() => setOpen('import')}
       />
 
-      {currentRow && (
+      {currentRow ? (
         <>
           <TasksMutateDrawer
             key={`task-update-${currentRow.id}`}
@@ -66,7 +66,7 @@ export function TasksDialogs() {
             confirmText='Delete'
           />
         </>
-      )}
+      ) : null}
     </>
   )
 }
