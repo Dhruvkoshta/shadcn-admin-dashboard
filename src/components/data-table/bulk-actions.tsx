@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import { type Table } from '@tanstack/react-table'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -35,23 +35,15 @@ export function DataTableBulkActions<TData>({
   const selectedRows = table.getFilteredSelectedRowModel().rows
   const selectedCount = selectedRows.length
   const toolbarRef = useRef<HTMLDivElement>(null)
-  const [announcement, setAnnouncement] = useState('')
 
-  // Announce selection changes to screen readers
-  useEffect(() => {
-    if (selectedCount > 0) {
-      const message = `${selectedCount} ${entityName}${selectedCount > 1 ? 's' : ''} selected. Bulk actions toolbar is available.`
-
-      // Use queueMicrotask to defer state update and avoid cascading renders
-      queueMicrotask(() => {
-        setAnnouncement(message)
-      })
-
-      // Clear announcement after a delay
-      const timer = setTimeout(() => setAnnouncement(''), 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [selectedCount, entityName])
+  // Derive announcement message directly instead of using useEffect + setState
+  const announcement = useMemo(
+    () =>
+      selectedCount > 0
+        ? `${selectedCount} ${entityName}${selectedCount > 1 ? 's' : ''} selected. Bulk actions toolbar is available.`
+        : '',
+    [selectedCount, entityName]
+  )
 
   const handleClearSelection = () => {
     table.resetRowSelection()

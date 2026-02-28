@@ -2,7 +2,7 @@ import { type ColumnDef } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { DataTableColumnHeader } from '@/components/data-table'
+import { DataTableColumnHeader } from '@/components/data-table/column-header'
 import { LongText } from '@/components/long-text'
 import { callTypes, roles } from '../data/data'
 import { type User } from '../data/schema'
@@ -118,9 +118,9 @@ export const usersColumns: ColumnDef<User>[] = [
 
       return (
         <div className='flex items-center gap-x-2'>
-          {userType.icon && (
+          {userType.icon ? (
             <userType.icon size={16} className='text-muted-foreground' />
-          )}
+          ) : null}
           <span className='text-sm capitalize'>{row.getValue('role')}</span>
         </div>
       )

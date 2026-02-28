@@ -1,20 +1,18 @@
-import {
-  IconTelegram,
-  IconNotion,
-  IconFigma,
-  IconTrello,
-  IconSlack,
-  IconZoom,
-  IconStripe,
-  IconGmail,
-  IconMedium,
-  IconSkype,
-  IconDocker,
-  IconGithub,
-  IconGitlab,
-  IconDiscord,
-  IconWhatsapp,
-} from '@/assets/brand-icons'
+import { IconDiscord } from '@/assets/brand-icons/icon-discord'
+import { IconDocker } from '@/assets/brand-icons/icon-docker'
+import { IconFigma } from '@/assets/brand-icons/icon-figma'
+import { IconGithub } from '@/assets/brand-icons/icon-github'
+import { IconGitlab } from '@/assets/brand-icons/icon-gitlab'
+import { IconGmail } from '@/assets/brand-icons/icon-gmail'
+import { IconMedium } from '@/assets/brand-icons/icon-medium'
+import { IconNotion } from '@/assets/brand-icons/icon-notion'
+import { IconSkype } from '@/assets/brand-icons/icon-skype'
+import { IconSlack } from '@/assets/brand-icons/icon-slack'
+import { IconStripe } from '@/assets/brand-icons/icon-stripe'
+import { IconTelegram } from '@/assets/brand-icons/icon-telegram'
+import { IconTrello } from '@/assets/brand-icons/icon-trello'
+import { IconWhatsapp } from '@/assets/brand-icons/icon-whatsapp'
+import { IconZoom } from '@/assets/brand-icons/icon-zoom'
 
 export const apps = [
   {

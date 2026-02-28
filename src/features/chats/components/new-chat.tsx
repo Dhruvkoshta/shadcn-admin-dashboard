@@ -31,14 +31,14 @@ export function NewChat({ users, onOpenChange, open }: NewChatProps) {
 
   const handleSelectUser = (user: User) => {
     if (!selectedUsers.find((u) => u.id === user.id)) {
-      setSelectedUsers([...selectedUsers, user])
+      setSelectedUsers((prev) => [...prev, user])
     } else {
       handleRemoveUser(user.id)
     }
   }
 
   const handleRemoveUser = (userId: string) => {
-    setSelectedUsers(selectedUsers.filter((user) => user.id !== userId))
+    setSelectedUsers((prev) => prev.filter((user) => user.id !== userId))
   }
 
   const handleOpenChange = (newOpen: boolean) => {
@@ -105,9 +105,9 @@ export function NewChat({ users, onOpenChange, open }: NewChatProps) {
                       </div>
                     </div>
 
-                    {selectedUsers.find((u) => u.id === user.id) && (
+                    {selectedUsers.some((u) => u.id === user.id) ? (
                       <Check className='h-4 w-4' />
-                    )}
+                    ) : null}
                   </CommandItem>
                 ))}
               </CommandGroup>

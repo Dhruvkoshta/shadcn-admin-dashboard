@@ -20,11 +20,13 @@ type DataTableToolbarProps<TData> = {
   }[]
 }
 
+const EMPTY_FILTERS: NonNullable<DataTableToolbarProps<unknown>['filters']> = []
+
 export function DataTableToolbar<TData>({
   table,
   searchPlaceholder = 'Filter...',
   searchKey,
-  filters = [],
+  filters = EMPTY_FILTERS,
 }: DataTableToolbarProps<TData>) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter

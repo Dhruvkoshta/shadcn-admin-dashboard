@@ -32,14 +32,9 @@ export function DataTableViewOptions<TData>({
       <DropdownMenuContent align='end' className='w-[150px]'>
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {table
-          .getAllColumns()
-          .filter(
-            (column) =>
-              typeof column.accessorFn !== 'undefined' && column.getCanHide()
-          )
-          .map((column) => {
-            return (
+        {table.getAllColumns().reduce<React.ReactNode[]>((acc, column) => {
+          if (typeof column.accessorFn !== 'undefined' && column.getCanHide()) {
+            acc.push(
               <DropdownMenuCheckboxItem
                 key={column.id}
                 className='capitalize'
@@ -49,7 +44,9 @@ export function DataTableViewOptions<TData>({
                 {column.id}
               </DropdownMenuCheckboxItem>
             )
-          })}
+          }
+          return acc
+        }, [])}
       </DropdownMenuContent>
     </DropdownMenu>
   )
